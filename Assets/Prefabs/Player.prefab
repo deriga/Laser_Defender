@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6694178635297137072}
   - component: {fileID: 6694178635297137073}
   - component: {fileID: 6694178635297137074}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,3 +102,5 @@ MonoBehaviour:
   laserPrefab: {fileID: 6912675519983691891, guid: 65b27a1060cb6a64bbe24069560f6fea, type: 3}
   projectileSpeed: 20
   projectileFiringPeriod: 0.1
+  projectileSound: {fileID: 8300000, guid: e9a0b35dbe510f2459c67c4fabefd130, type: 3}
+  projectileVolume: 0.3

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -2304772944599556508}
   - component: {fileID: -9074172446677551153}
   - component: {fileID: -5534126888643331254}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,12 +109,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1088c3fe65f4f8544973f17acb1b70ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 500
+  health: 200
   shotCounter: 0
   minTimeBetweenShots: 2
   maxTimeBetweenShots: 4
   enemyProjectilePrefab: {fileID: 1344662654164645343, guid: 281534265314f2d44a46012351b4f9d7, type: 3}
   projectileSpeed: 5
+  VFXExplosion: {fileID: 8093890817429828245, guid: eede59ef5b054094aa0a28937c8bb140, type: 3}
+  durationOfExplosion: 1
+  projectileSound: {fileID: 8300000, guid: f50237934cf41ab45982d9fa4415e955, type: 3}
+  projectileVolume: 0.3
+  hitSound: {fileID: 8300000, guid: bf7bc04b88adcea4ba730d36b633b66a, type: 3}
+  hitVolume: 1
 --- !u!58 &-5534126888643331254
 CircleCollider2D:
   m_ObjectHideFlags: 0

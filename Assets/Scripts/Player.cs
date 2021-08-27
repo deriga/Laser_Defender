@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float projectileSpeed = 20f;
     [SerializeField] float projectileFiringPeriod = 0.1f;
+    [SerializeField] AudioClip projectileSound;
+    [SerializeField] float projectileVolume = 1f;
 
     Coroutine firingCoroutine;
 
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
         {
             GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+            AudioSource.PlayClipAtPoint(projectileSound, Camera.main.transform.position, projectileVolume);
             yield return new WaitForSeconds(projectileFiringPeriod);
         }
     }
@@ -78,12 +81,18 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        DamageDealer enemyShot = other.gameObject.GetComponent<DamageDealer>();
-        health -= enemyShot.GetDamage();
+        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+        if (!damageDealer) { return; }
+        ProcessHit(damageDealer);
+    }
+
+    private void ProcessHit(DamageDealer damageDealer)
+    {
+        health -= damageDealer.GetDamage();
+        damageDealer.Hit();
         if (health <= 0)
         {
             Destroy(gameObject);
         }
-
     }
 }

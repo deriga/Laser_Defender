@@ -3,7 +3,9 @@ guid: caa5efe19b14fa145b68729c9f18fa01
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - laserPrefab: {instanceID: 0}
+  - projectileSound: {fileID: 8300000, guid: d38b44e4126332047b6c9f80f88179f9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -12,6 +12,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] float maxTimeBetweenShots = 2f;
     [SerializeField] GameObject enemyProjectilePrefab;
     [SerializeField] float projectileSpeed = 5f;
+    [SerializeField] GameObject VFXExplosion;
+    [SerializeField] float durationOfExplosion = 1f;
+    [SerializeField] AudioClip projectileSound;
+    [SerializeField] [Range(0, 1)] float projectileVolume = 0.5f;
+    [SerializeField] AudioClip hitSound;
+    [SerializeField] [Range(0,1)] float hitVolume = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +38,7 @@ public class Enemy : MonoBehaviour
         {
             Fire();
             shotCounter = UnityEngine.Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
+            AudioSource.PlayClipAtPoint(projectileSound, Camera.main.transform.position, projectileVolume);
         }
     }
 
@@ -44,15 +51,25 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+        if (!damageDealer) { return; }
         ProcessHit(damageDealer);
     }
 
     private void ProcessHit(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
+        damageDealer.Hit();
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+        GameObject explosion = Instantiate(VFXExplosion, transform.position, transform.rotation);
+        AudioSource.PlayClipAtPoint(hitSound, Camera.main.transform.position, hitVolume);
+        Destroy(explosion, durationOfExplosion);
     }
 }
