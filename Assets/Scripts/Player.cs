@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class Player : MonoBehaviour
     [SerializeField] float Xpadding = 0.6f;
     [SerializeField] float Ypadding = 0.4f;
     [SerializeField] int health = 500;
+    [SerializeField] Slider slider;
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] float deathSoundVolume;
+    [SerializeField] float fireCost = 0.01f;
+    bool isShootable = true;
 
     [Header("Projectile")]
     [SerializeField] GameObject laserPrefab;
@@ -34,7 +40,23 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        IsShootable();
+        DecreaseSliderValue();
         Fire();
+    }
+
+    private void DecreaseSliderValue()
+    {
+        if (!isShootable || Input.GetKey(KeyCode.Space) == false)
+        {
+            slider.value -= fireCost * Time.deltaTime * Time.deltaTime * 10;
+        }
+    }
+
+    private void IsShootable()
+    {
+        if (slider.value <= 0.5f) { isShootable = true; }
+        if (slider.value >= 0.97f) { isShootable = false; }
     }
 
     private void Fire()
@@ -43,7 +65,7 @@ public class Player : MonoBehaviour
         {
             firingCoroutine = StartCoroutine(FireContinuously());
         }
-        if (Input.GetButtonUp("Fire1"))
+        if (Input.GetButtonUp("Fire1") || !isShootable)
         {
             StopCoroutine(firingCoroutine);
         }
@@ -51,13 +73,15 @@ public class Player : MonoBehaviour
 
     IEnumerator FireContinuously()
     {
-        while (true)
+        while (isShootable)
         {
-            GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
+            slider.value += fireCost * Time.deltaTime;
+            GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
             AudioSource.PlayClipAtPoint(projectileSound, Camera.main.transform.position, projectileVolume);
             yield return new WaitForSeconds(projectileFiringPeriod);
         }
+        yield return new WaitForEndOfFrame();
     }
 
     private void Move()
@@ -92,7 +116,14 @@ public class Player : MonoBehaviour
         damageDealer.Hit();
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        FindObjectOfType<Level>().LoadGameOverScene();
+        Destroy(gameObject);
+        AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, deathSoundVolume);
     }
 }

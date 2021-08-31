@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{FD4A65F0-183F-9B01-6FDD-D96D34E458E6}</ProjectGuid>
+    <ProjectGuid>{2F76FE68-29F6-A88D-3266-3E91AF0A250E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,6 +53,8 @@
     <UnityVersion>2020.3.13f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BackgroundScroller.cs" />
+    <Compile Include="Assets\Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\DamageDealer.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Shredder.cs" />
@@ -60,8 +62,9 @@
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\EnemyPathing.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\BackgroundScroller.cs" />
-    <Compile Include="Assets\Scripts\Level.cs" />
+    <Compile Include="Assets\Scripts\MusicPlayer.cs" />
+    <Compile Include="Assets\Scripts\GameSession.cs" />
+    <Compile Include="Assets\Scripts\ScoreDisplay.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
