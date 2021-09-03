@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour
 {
     //config params
     [SerializeField] float health = 200;
-    [SerializeField] float shotCounter;
+    public int point = 100;
+    float shotCounter;
     [SerializeField] float minTimeBetweenShots = 0.5f;
     [SerializeField] float maxTimeBetweenShots = 2f;
     [SerializeField] GameObject enemyProjectilePrefab;
@@ -18,7 +19,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] [Range(0, 1)] float projectileVolume = 0.5f;
     [SerializeField] AudioClip hitSound;
     [SerializeField] [Range(0,1)] float hitVolume = 0.5f;
-    public int point = 100;
+
 
     // Start is called before the first frame update
     void Start()
